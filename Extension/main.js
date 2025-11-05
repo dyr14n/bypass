@@ -495,7 +495,7 @@
             return false;
         }
 
-        const mo = new MutationObserv((mutations) => {
+        const mo = new MutationObserver((mutations) => {
             for (const mutation of mutations) {
                 if (mutation.type === 'childList') {
                     for (const node of mutation.addedNodes) {
