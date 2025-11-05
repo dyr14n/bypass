@@ -19,7 +19,7 @@
             bypassSuccess: "Bypass thành công, chờ {time}s...",
             backToCheckpoint: "Đang về lại Checkpoint...",
             captchaSuccessBypassing: "CAPTCHA đã thành công, đang bypass...",
-            vsion: `Phiên bản v${v}`,
+            version: `Phiên bản v${v}`,
             madeBy: "Được tạo bởi DyRian (dựa trên IHaxU)"
         },
         en: {
@@ -33,7 +33,7 @@
             bypassSuccess: "Bypass successful, waiting {time}s...",
             backToCheckpoint: "Returning to checkpoint...",
             captchaSuccessBypassing: "CAPTCHA solved successfully, bypassing...",
-            vsion: `vsion v${v}`,
+            version: `Version v${v}`,
             madeBy: "Made by DyRian (based on IHaxU)"
         }
     };
@@ -53,7 +53,7 @@
             this.panel = null;
             this.statusText = null;
             this.statusDot = null;
-            this.vsionEl = null;
+            this.versionEl = null;
             this.creditEl = null;
             this.langBtns = [];
             this.currentMessageKey = null;
@@ -91,7 +91,7 @@
                     background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
                     border-radius: 16px;
                     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-                    ovflow: hidden;
+                    overflow: hidden;
                     animation: slideIn 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
                     transition: all 0.3s ease;
                 }
@@ -111,7 +111,7 @@
                     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
                     padding: 16px 20px;
                     position: relative;
-                    ovflow: hidden;
+                    overflow: hidden;
                     display: flex;
                     justify-content: space-between;
                     align-items: center;
@@ -160,7 +160,7 @@
                     z-index: 1;
                 }
 
-                .minimize-btn:hov {
+                .minimize-btn:hover {
                     background: rgba(255,255,255,0.3);
                     transform: scale(1.1);
                 }
@@ -175,7 +175,7 @@
                     border-radius: 12px;
                     padding: 16px;
                     position: relative;
-                    ovflow: hidden;
+                    overflow: hidden;
                 }
 
                 .status-box::before {
@@ -231,7 +231,7 @@
 
                 .panel-body {
                     max-height: 500px;
-                    ovflow: hidden;
+                    overflow: hidden;
                     transition: all 0.3s ease;
                     opacity: 1;
                 }
@@ -266,7 +266,7 @@
                     letter-spacing: 1px;
                 }
 
-                .lang-btn:hov {
+                .lang-btn:hover {
                     background: rgba(255,255,255,0.1);
                     transform: translateY(-2px);
                 }
@@ -282,7 +282,7 @@
                     background: rgba(0,0,0,0.2);
                 }
 
-                .vsion {
+                .version {
                     color: rgba(255,255,255,0.6);
                     font-size: 12px;
                     font-weight: 500;
@@ -316,7 +316,7 @@
                     transition: all 0.2s;
                 }
 
-                .links a:hov {
+                .links a:hover {
                     color: #764ba2;
                     text-decoration: underline;
                 }
@@ -338,7 +338,7 @@
                     <div class="panel">
                         <div class="header">
                             <div class="title">${t('title')}</div>
-                            <button class="minimize-btn" id="minimize-btn">−</button>
+                            <button class="minimize-btn" id="minimize-btn">-</button>
                         </div>
                         <div class="status-section">
                             <div class="status-box">
@@ -356,7 +356,7 @@
                                 </div>
                             </div>
                             <div class="info-section">
-                                <div class="vsion" id="vsion">${t('vsion')}</div>
+                                <div class="version" id="version">${t('version')}</div>
                                 <div class="credit" id="credit">
                                     ${t('madeBy')}
                                 </div>
@@ -377,7 +377,7 @@
             this.panel = this.shadow.querySelector('.panel');
             this.statusText = this.shadow.querySelector('#status-text');
             this.statusDot = this.shadow.querySelector('#status-dot');
-            this.vsionEl = this.shadow.querySelector('#vsion');
+            this.versionEl = this.shadow.querySelector('#version');
             this.creditEl = this.shadow.querySelector('#credit');
             this.langBtns = Array.from(this.shadow.querySelectorAll('.lang-btn'));
             this.body = this.shadow.querySelector('#panel-body');
@@ -409,7 +409,7 @@
             });
 
             this.shadow.querySelector('.title').textContent = t('title');
-            this.vsionEl.textContent = t('vsion');
+            this.versionEl.textContent = t('version');
             this.creditEl.textContent = t('madeBy');
 
             if (this.currentMessageKey) {
@@ -429,10 +429,7 @@
     }
 
     let panel = null;
-    setTimeout(() => { 
-        panel = new BypassPanel(); 
-        panel.show('pleaseSolveCaptcha', 'info'); 
-    }, 100);
+    setTimeout(() => { panel = new BypassPanel(); panel.show('pleaseSolveCaptcha', 'info'); }, 100);
 
     if (host.includes("key.volcano.wtf")) handleVolcano();
     else if (host.includes("work.ink")) handleWorkInk();
@@ -789,7 +786,7 @@
         style.textContent = (typeof atob === 'function') ? atob(hide) : (Buffer ? Buffer.from(hide, 'base64').toString() : '');
         (document.head || document.documentElement).appendChild(style);
 
-        const mo = new MutationObserver(mutations => {
+        const observer = new MutationObserver(mutations => {
             for (const m of mutations) {
                 for (const node of m.addedNodes) {
                     if (node.nodeType !== 1) continue;
@@ -802,16 +799,13 @@
                         node.click();
                     } else {
                         node.querySelectorAll?.('.button.large.accessBtn.pos-relative').forEach(btn => {
-                            if (btn.textContent.includes('Go To Destination')) {
-                                if (panel) panel.show('captchaSuccessBypassing', 'success');
-                                btn.click();
-                            }
+                            if (btn.textContent.includes('Go To Destination')) if (panel) panel.show('captchaSuccessBypassing', 'success'); btn.click();
                         });
                     }
                 }
             }
         });
-        mo.observe(document.documentElement, { childList: true, subtree: true });
+        observer.observe(document.documentElement, { childList: true, subtree: true });
     }
 
     console.log(`[Dyrian Bypass v${v}] Script loaded successfully`);
