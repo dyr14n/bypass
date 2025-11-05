@@ -785,7 +785,7 @@
         style.textContent = (typeof atob === 'function') ? atob(hide) : (Buffer ? Buffer.from(hide, 'base64').toString() : '');
         (document.head || document.documentElement).appendChild(style);
 
-        const observer = new MutationObserver(mutations => {
+        const ob = new MutationObserver(mutations => {
             for (const m of mutations) {
                 for (const node of m.addedNodes) {
                     if (node.nodeType !== 1) continue;
@@ -807,7 +807,7 @@
                 }
             }
         });
-        observer.observe(document.documentElement, { childList: true, subtree: true });
+        ob.observe(document.documentElement, { childList: true, subtree: true });
     }
 
     console.log(`[Dyrian Bypass v${v}] Script loaded successfully`);
