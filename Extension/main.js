@@ -759,13 +759,12 @@
             const origPromiseAll = window.Promise.all;
             let intercepted = false;
 
-            window.Promise.all = async function(promises) {
+            window.Promise.all = function(promises) {
                 const result = origPromiseAll.call(this, promises);
                 if (!intercepted) {
                     intercepted = true;
-                    return await new Promise((resolve) => {
+                    return new Promise((resolve) => {
                         result.then(([kit, app, ...args]) => {
-
                             const [success, created] = createKitProxy(kit);
                             if (success) {
                                 window.Promise.all = origPromiseAll;
@@ -774,7 +773,7 @@
                         });
                     });
                 }
-                return await result;
+                return result;
             };
         }
 
