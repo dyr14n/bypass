@@ -798,7 +798,10 @@
                         node.click();
                     } else {
                         node.querySelectorAll?.('.button.large.accessBtn.pos-relative').forEach(btn => {
-                            if (btn.textContent.includes('Go To Destination')) if (panel) panel.show('captchaSuccessBypassing', 'success'); btn.click();
+                            if (btn.textContent.includes('Go To Destination')) {
+                                if (panel) panel.show('captchaSuccessBypassing', 'success');
+                                btn.click();
+                            }
                         });
                     }
                 }
