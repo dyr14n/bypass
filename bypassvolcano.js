@@ -644,8 +644,8 @@
                             if (debug) console.log(`[Debug] Faked readArticles2 [${i+1}/${monetizations.length}]`);
                             break;
                         case 25:
-                            sendMessageA && sendMessageA.call(this, types.mo, { type: 'operaGX', payload: { event: 'start' } });
-                            sendMessageA && sendMessageA.call(this, types.mo, { type: 'operaGX', payload: { event: 'installClicked' } });
+                            sendMessageA && sendMessageA.call(this, types.mo, { type: 'operaGX', s: 'yLH1ChaZtldf5ItuZkIcamNhT8d11a2GhNw27JLWFjxk9bXz2HOpxQnuQHNgKqI6', payload: { event: 'start' } });
+                            sendMessageA && sendMessageA.call(this, types.mo, { type: 'operaGX', s: 'yLH1ChaZtldf5ItuZkIcamNhT8d11a2GhNw27JLWFjxk9bXz2HOpxQnuQHNgKqI6', payload: { event: 'installClicked' } });
                             fetch('https://work.ink/_api/v2/callback/operaGX', {
                                 method: 'POST',
                                 mode: 'no-cors',
@@ -887,85 +887,34 @@
                 return await result;
             };
         }
+        
+        const hide = 'W2lkXj0iYnNhLXpvbmVfIl0sCmRpdi5maXhlZC5pbnNldC0wLmJnLWJsYWNrXC81MC5iYWNrZHJvcC1ibHVyLXNtLApkaXYuZG9uZS1iYW5uZXItY29udGFpbmVyLnN2ZWx0ZS0xeWptazFnLAppbnM6bnRoLW9mLXR5cGUoMSksCmRpdjpudGgtb2YtdHlwZSg5KSwKZGl2LmZpeGVkLnRvcC0xNi5sZWZ0LTAucmlnaHQtMC5ib3R0b20tMC5iZy13aGl0ZS56LTQwLm92ZXJmbG93LXktYXV0bywKcFtzdHlsZV0sCi5hZHNieWdvb2dsZSwKLmFkc2Vuc2Utd3JhcHBlciwKLmlubGluZS1hZCwKLmdwdC1iaWxsYm9hcmQtY29udGFpbmVyLAojYmlsbGJvYXJkLTEsCiNiaWxsYm9hcmQtMiwKI2JpbGxib2FyZC0zLAojc2lkZWJhci1hZC0xLAojc2t5c2NyYXBlci1hZC0xIHsKICAgIGRpc3BsYXk6IG5vbmUgIWltcG9ydGFudDsKfQ==';
 
-        window.googletag = {cmd: [], _loaded_: true};
-
-        const blockedClasses = [
-            "adsbygoogle",
-            "adsense-wrapper",
-            "inline-ad",
-            "gpt-billboard-container"
-        ];
-
-        const blockedIds = [
-            "billboard-1",
-            "billboard-2",
-            "billboard-3",
-            "sidebar-ad-1",
-            "skyscraper-ad-1"
-        ];
-
+        const style = document.createElement('style');
+        style.textContent = (typeof atob === 'function') ? atob(hide) : (Buffer ? Buffer.from(hide, 'base64').toString() : '');
+        (document.head || document.documentElement).appendChild(style);
         setupInterception();
 
         const ob = new MutationObserver(mutations => {
             for (const m of mutations) {
                 for (const node of m.addedNodes) {
-                    if (node.nodeType === 1) {
-                        blockedClasses.forEach((cls) => {
-                            if (node.classList?.contains(cls)) {
-                                node.remove();
-                                if (debug) console.log('[Debug]: Removed ad by class:', cls, node);
-                            }
-                            node.querySelectorAll?.(`.${cls}`).forEach((el) => {
-                                el.remove();
-                                if (debug) console.log('[Debug]: Removed nested ad by class:', cls, el);
-                            });
+                    if (node.nodeType !== 1) continue;
+
+                    if (node.classList?.contains('adsbygoogle')) node.remove();
+                    node.querySelectorAll?.('.adsbygoogle').forEach(el => el.remove());
+
+                    if (node.matches('.button.large.accessBtn.pos-relative') && node.textContent.includes('Go To Destination')) {
+                        if (panel) panel.show('captchaSuccessBypassing', 'success');
+                        node.click();
+                    } else {
+                        node.querySelectorAll?.('.button.large.accessBtn.pos-relative').forEach(btn => {
+                            if (btn.textContent.includes('Go To Destination')) if (panel) panel.show('captchaSuccessBypassing', 'success'); btn.click();
                         });
-                        
-                        blockedIds.forEach((id) => {
-                            if (node.id === id) {
-                                node.remove();
-                                if (debug) console.log('[Debug]: Removed ad by id:', id, node);
-                            }
-                            node.querySelectorAll?.(`#${id}`).forEach((el) => {
-                                el.remove();
-                                if (debug) console.log('[Debug]: Removed nested ad by id:', id, el);
-                            });
-                        });
-                        
-                        if (node.matches('.button.large.accessBtn.pos-relative.svelte-bv7qlp') && node.textContent.includes('Go To Destination')) {
-                            if (debug) console.log('[Debug] GTD button detected');
-                            
-                            if (!bypassTriggered) {
-                                if (debug) console.log('[Debug] GTD: Waiting for linkInfo...');
-                                
-                                let gtdRetryCount = 0;
-                                
-                                function checkAndTriggerGTD() {
-                                    const ctrl = sessionController;
-                                    const dest = resolveName(ctrl, map.onLD);
-                                    
-                                    if (ctrl && ctrl.linkInfo && dest.fn) {
-                                        triggerBypass('gtd');
-                                        if (debug) console.log('[Debug] Captcha bypassed via GTD after', gtdRetryCount, 'seconds');
-                                    } else {
-                                        gtdRetryCount++;
-                                        if (debug) console.log(`[Debug] GTD retry ${gtdRetryCount}s: Still waiting for linkInfo...`);
-                                        if (panel) panel.show('pleaseReload', 'info');
-                                        setTimeout(checkAndTriggerGTD, 1000);
-                                    }
-                                }
-                                
-                                checkAndTriggerGTD();
-                                
-                            } else {
-                                if (debug) console.log('[Debug] GTD ignored: bypass already triggered via TR');
-                            }
-                        }
                     }
                 }
             }
         });
-        ob.observe(document.documentElement, { childList: true, subtree: true });
+        observer.observe(document.documentElement, { childList: true, subtree: true });
     }
 })();
+
