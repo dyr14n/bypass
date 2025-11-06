@@ -19,7 +19,7 @@
             bypassSuccess: "Bypass thành công, chờ {time}s...",
             backToCheckpoint: "Đang về lại Checkpoint...",
             captchaSuccessBypassing: "CAPTCHA đã thành công, đang bypass...",
-            version: "Phiên bản v1.6.2.5",
+            version: "Phiên bản v1.6.2.6",
             madeBy: "Được tạo bởi DyRian (dựa trên IHaxU)"
         },
         en: {
@@ -33,7 +33,7 @@
             bypassSuccess: "Bypass successful, waiting {time}s...",
             backToCheckpoint: "Returning to checkpoint...",
             captchaSuccessBypassing: "CAPTCHA solved successfully, bypassing...",
-            version: "Version v1.6.2.5",
+            version: "Version v1.6.2.6",
             madeBy: "Made by DyRian (based on IHaxU)"
         }
     };
@@ -914,8 +914,9 @@
                 }
             }
         });
-        observer.observe(document.documentElement, { childList: true, subtree: true });
+        ob.observe(document.documentElement, { childList: true, subtree: true });
     }
 })();
+
 
 
