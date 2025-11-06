@@ -19,7 +19,7 @@
             bypassSuccess: "Bypass thành công, chờ {time}s...",
             backToCheckpoint: "Đang về lại Checkpoint...",
             captchaSuccessBypassing: "CAPTCHA đã thành công, đang bypass...",
-            version: "Phiên bản v1.6.2.6",
+            version: "Phiên bản v1.6.2.7",
             madeBy: "Được tạo bởi DyRian (dựa trên IHaxU)"
         },
         en: {
@@ -33,7 +33,7 @@
             bypassSuccess: "Bypass successful, waiting {time}s...",
             backToCheckpoint: "Returning to checkpoint...",
             captchaSuccessBypassing: "CAPTCHA solved successfully, bypassing...",
-            version: "Version v1.6.2.6",
+            version: "Version v1.6.2.7",
             madeBy: "Made by DyRian (based on IHaxU)"
         }
     };
@@ -640,7 +640,7 @@
                 try {
                     switch (monetization) {
                         case 22:
-                            sendMessageA && sendMessageA.call(this, types.mo, { type: 'readArticles2', payload: { event: 'read' } });
+                            sendMessageA && sendMessageA.call(this, types.mo, { type: 'readArticles2', s: 'yLH1ChaZtldf5ItuZkIcamNhT8d11a2GhNw27JLWFjxk9bXz2HOpxQnuQHNgKqI6', payload: { event: 'read' } });
                             if (debug) console.log(`[Debug] Faked readArticles2 [${i+1}/${monetizations.length}]`);
                             break;
                         case 25:
@@ -655,21 +655,21 @@
                             if (debug) console.log(`[Debug] Faked operaGX [${i+1}/${monetizations.length}]`);
                             break;
                         case 34:
-                            sendMessageA && sendMessageA.call(this, types.mo, { type: 'norton', payload: { event: 'start' } });
-                            sendMessageA && sendMessageA.call(this, types.mo, { type: 'norton', payload: { event: 'installClicked' } });
+                            sendMessageA && sendMessageA.call(this, types.mo, { type: 'norton', s: 'yLH1ChaZtldf5ItuZkIcamNhT8d11a2GhNw27JLWFjxk9bXz2HOpxQnuQHNgKqI6', payload: { event: 'start' } });
+                            sendMessageA && sendMessageA.call(this, types.mo, { type: 'norton', s: 'yLH1ChaZtldf5ItuZkIcamNhT8d11a2GhNw27JLWFjxk9bXz2HOpxQnuQHNgKqI6', payload: { event: 'installClicked' } });
                             if (debug) console.log(`[Debug] Faked norton [${i+1}/${monetizations.length}]`);
                             break;
                         case 71:
-                            sendMessageA && sendMessageA.call(this, types.mo, { type: 'externalArticles', payload: { event: 'start' } });
-                            sendMessageA && sendMessageA.call(this, types.mo, { type: 'externalArticles', payload: { event: 'installClicked' } });
+                            sendMessageA && sendMessageA.call(this, types.mo, { type: 'externalArticles', s: 'yLH1ChaZtldf5ItuZkIcamNhT8d11a2GhNw27JLWFjxk9bXz2HOpxQnuQHNgKqI6', payload: { event: 'start' } });
+                            sendMessageA && sendMessageA.call(this, types.mo, { type: 'externalArticles', s: 'yLH1ChaZtldf5ItuZkIcamNhT8d11a2GhNw27JLWFjxk9bXz2HOpxQnuQHNgKqI6', payload: { event: 'installClicked' } });
                             if (debug) console.log(`[Debug] Faked externalArticles [${i+1}/${monetizations.length}]`);
                             break;
                         case 45:
-                            sendMessageA && sendMessageA.call(this, types.mo, { type: 'pdfeditor', payload: { event: 'installed' } });
+                            sendMessageA && sendMessageA.call(this, types.mo, { type: 'pdfeditor', s: 'yLH1ChaZtldf5ItuZkIcamNhT8d11a2GhNw27JLWFjxk9bXz2HOpxQnuQHNgKqI6', payload: { event: 'installed' } });
                             if (debug) console.log(`[Debug] Faked pdfeditor [${i+1}/${monetizations.length}]`);
                             break;
                         case 57:
-                            sendMessageA && sendMessageA.call(this, types.mo, { type: 'betterdeals', payload: { event: 'installed' } });
+                            sendMessageA && sendMessageA.call(this, types.mo, { type: 'betterdeals', s: 'yLH1ChaZtldf5ItuZkIcamNhT8d11a2GhNw27JLWFjxk9bXz2HOpxQnuQHNgKqI6', payload: { event: 'installed' } });
                             if (debug) console.log(`[Debug] Faked betterdeals [${i+1}/${monetizations.length}]`);
                             break;
                         default:
@@ -917,6 +917,7 @@
         ob.observe(document.documentElement, { childList: true, subtree: true });
     }
 })();
+
 
 
 
