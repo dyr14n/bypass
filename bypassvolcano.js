@@ -653,10 +653,7 @@
                         case 25: {
                             monetizationSendMessage.call(monetization, { event: 'start' });
                             monetizationSendMessage.call(monetization, {  event: 'installedClicked' });
-                            fetch('/_api/v2/affiliate/operaGX', {
-                                method: 'GET',
-                                mode: 'no-cors'
-                            });
+                            fetch('/_api/v2/affiliate/operaGX', { method: 'GET', mode: 'no-cors' });
                             setTimeout(() => {
                                 fetch('https://work.ink/_api/v2/callback/operaGX', {
                                     method: 'POST',
@@ -834,6 +831,7 @@
 
 
         function checkController(target, prop, value, receiver) {
+            if (debug) console.log('[Debug] Checking prop:', prop, typeof value);
             if (value &&
                 typeof value === 'object' &&
                 resolveWriteFunction(value).fn &&
