@@ -2,7 +2,7 @@
     'use strict';
 
     const host = location.hostname; // check host
-    const debug = false // enable debug logs (console)
+    const debug = true // enable debug logs (console)
 
     let currentLanguage = localStorage.getItem('lang') || 'vi'; // default language: vi/en
 
@@ -1016,3 +1016,4 @@
         ob.observe(document.documentElement, { childList: true, subtree: true });
     }
 })();
+
